@@ -11,7 +11,7 @@
 // The ISO thread code is by Trevor Moseley
 
 // Preview Each Part
-part = "Cuff"; // [ Cuff:Cuff, Arm1:Arm1, Arm2:Arm2,  ElbowBolt:ElbowBolt, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg]    
+part = "Cuff"; // [ Cuff:Cuff, Arm1:Arm1, Arm2:Arm2, WristBolt:WristBolt,  ElbowBolt:ElbowBolt, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg]    
 
 // Choose Left or Right Hand
 LeftRight = "Left"; // [Left,Right]
@@ -25,8 +25,8 @@ BicepCircumference = 294; //[147: 588]
 AdditionalHandScale = 100; //[50: 150]
 // Padding Thickness -inside forearm and cuff (mm)
 PaddingThickness = 2; //[0: 10]
-// How many pieces to divide the arm into 
-ArmPieces = 2; //[1, 2]
+// How many pieces to divide the arm into  HIDDEN
+// ArmPieces = 2; //[1, 2]
 // ISO metric bolt holding cuff and arm together (mm)
 ElbowBoltDiameter = 8; //[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 // Extra added diameter for elbow bolt
@@ -40,6 +40,8 @@ VentingHoles = "None"; // [None,VentingHoles1,VentingHoles2,VentingHoles3]
 //HandWidth = 93; //[50:186]
 
 /* [Hidden] */
+
+ArmPieces = 2;
 
 // This is an amount added to the pencil cover length. 
 // When this is zero the pencil cover is as tight as possible.
@@ -161,7 +163,7 @@ module MakeCuff() {
 
 module MakeWristBolt() {
  
-    hi = 10.00 * HandScale + 25 * ArmScale;
+    hi = 16 * HandScale + 20 * ArmScale;
     
     difference() {
         
@@ -170,7 +172,7 @@ module MakeWristBolt() {
             thread_out_centre(WristBoltDiameter,hi);
             
             // round the ends to not wear the thread
-            translate([0, 0, 2 ]) rotate_extrude(convexity = 10) translate([WristBoltDiameter/4, 0, 0]) circle(r = WristBoltDia/5.5, $fn = 100);
+            translate([0, 0, 2 ]) rotate_extrude(convexity = 10) translate([WristBoltDiameter/4, 0, 0]) circle(r = WristBoltDiameter/5.5, $fn = 100);
             translate([0, 0, hi-2 ]) rotate_extrude(convexity = 10) translate([WristBoltDiameter/4, 0, 0]) circle(r = WristBoltDiameter/5.5, $fn = 100);
             
             difference(){
