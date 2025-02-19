@@ -163,7 +163,7 @@ module MakeCuff() {
 
 module MakeWristBolt() {
  
-    hi = 16 * HandScale + 20 * ArmScale;
+    hi = 16 * HandScale + 20 * ArmScale - 10;
     
     difference() {
         
@@ -178,7 +178,9 @@ module MakeWristBolt() {
             difference(){
                 
                 //make threads
-                translate([0, 0, -5 ]) thread_out(WristBoltDiameter,hi+10);
+                // Compensate .3 mm tolerance per 5 mm change in thread diameter
+                // this is because with smaller bolt, we need larger tolerance
+                translate([0, 0, -5 ]) thread_out(WristBoltDiameter - 0.1 * (25 - WristBoltDiameter),hi+10);
                
                 //Cut threads evenly at bolt ends
                 translate([0, 0, -5 ]) cylinder(d = WristBoltDiameter + 10, h = 10, center=true, $fn=30);
