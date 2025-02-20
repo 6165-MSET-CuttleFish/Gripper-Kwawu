@@ -184,39 +184,40 @@ module MakeCuff() {
 }
 
 module MakeWristBolt() {
- 
+    // Compensate .6 mm tolerance per 5 mm change in thread diameter
+    // this is because with smaller bolt, we need larger tolerance
+    diam = WristBoltDiameter - 0.12 * (25 - WristBoltDiameter);
     hi = 16 * HandScale + 20 * ArmScale - 10;
     
     difference() {
         
         union() {
             // basic cyliner of bolt
-            thread_out_centre(WristBoltDiameter,hi);
+            thread_out_centre(diam,hi);
             
             // round the ends to not wear the thread
-            translate([0, 0, 2 ]) rotate_extrude(convexity = 10) translate([WristBoltDiameter/4, 0, 0]) circle(r = WristBoltDiameter/5.5, $fn = 100);
-            translate([0, 0, hi-2 ]) rotate_extrude(convexity = 10) translate([WristBoltDiameter/4, 0, 0]) circle(r = WristBoltDiameter/5.5, $fn = 100);
+            translate([0, 0, 2 ]) rotate_extrude(convexity = 10) translate([diam/4, 0, 0]) circle(r = diam/5.5, $fn = 100);
+            translate([0, 0, hi-2 ]) rotate_extrude(convexity = 10) translate([diam/4, 0, 0]) circle(r = diam/5.5, $fn = 100);
             
             difference(){
                 
                 //make threads
-                // Compensate .3 mm tolerance per 5 mm change in thread diameter
-                // this is because with smaller bolt, we need larger tolerance
-                translate([0, 0, -5 ]) thread_out(WristBoltDiameter - 0.1 * (25 - WristBoltDiameter),hi+10);
+                
+                translate([0, 0, -5 ]) thread_out(diam,hi+10);
                
                 //Cut threads evenly at bolt ends
-                translate([0, 0, -5 ]) cylinder(d = WristBoltDiameter + 10, h = 10, center=true, $fn=30);
-                translate([0, 0, hi+5 ]) cylinder(d = WristBoltDiameter + 10, h = 10, center=true, $fn=30);
+                translate([0, 0, -5 ]) cylinder(d = diam + 10, h = 10, center=true, $fn=30);
+                translate([0, 0, hi+5 ]) cylinder(d = diam + 10, h = 10, center=true, $fn=30);
                 
             }
         }
       
         //Cut flat top and bottom to make printable
-        translate([9*WristBoltDiameter /10, 0, hi/2 -5]) cube([ WristBoltDiameter + 1, WristBoltDiameter + 1, hi+15], center= true);
+        translate([9*diam /10, 0, hi/2 -5]) cube([ diam + 1, diam + 1, hi+15], center= true);
         //translate([-9*WristBoltDia /10, 0, hi/2 -5]) cube([ WristBoltDia + 1, WristBoltDia + 1, hi+15], center= true);
         
         //Cut a hole down middle for string
-        translate([0, 0, hi/2 +5 ]) cylinder(d = WristBoltDiameter/5.5, h = hi +15, center=true, $fn=30);
+        translate([0, 0, hi/2 +5 ]) cylinder(d = diam/5.5, h = hi +15, center=true, $fn=30);
         
     }
     
