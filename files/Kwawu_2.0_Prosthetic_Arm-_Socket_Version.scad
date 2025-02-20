@@ -30,7 +30,7 @@ PaddingThickness = 2; //[0: 10]
 // ISO metric bolt holding cuff and arm together (mm)
 ElbowBoltDiameter = 8; //[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 // Extra added diameter for elbow bolt
-ElbowBoltExtraDiameter = 0.2; // [-0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5]
+ElbowBoltExtraDiameter = 0.15;
 
 WristBoltDiameter = 25; // [20, 25, 30]
 
