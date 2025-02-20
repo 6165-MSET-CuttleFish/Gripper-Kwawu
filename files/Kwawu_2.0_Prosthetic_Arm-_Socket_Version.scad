@@ -11,7 +11,7 @@
 // The ISO thread code is by Trevor Moseley
 
 // Preview Each Part
-part = "Cuff"; // [ Cuff:Cuff, Arm1:Arm1, Arm2:Arm2, WristBolt:WristBolt,  ElbowBolt:ElbowBolt, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg]    
+part = "All"; // [ All:All, Cuff:Cuff, Arm1:Arm1, Arm2:Arm2, WristBolt:WristBolt,  ElbowBolt:ElbowBolt, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg]    
 
 // Choose Left or Right Hand
 LeftRight = "Left"; // [Left,Right]
@@ -69,19 +69,33 @@ print_part();
 
 module print_part( ) {
     
-    if(part == "ElbowBolt") {
+    if(part == "ElbowBolt" || part == "All") {
+        translate([400, 400, 0])
         // ( dia,hi, headhi, headDiameter, hexDiameter)
+        translate([-30, 0, 0])
         make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+        translate([400, 400, 0])
+        translate([30, 0, 0])
+        make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+        translate([400, 400, 0])
+        translate([0, 30, 0])
+        make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+        translate([400, 400, 0])
+        translate([0, -30, 0])
+        make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+        
     }
 
-    if(part == "WristBolt") {
-        
+    if(part == "WristBolt" || part == "All") {
+        translate([-400, 400, 0])
         // rotate for better print orientation
         rotate([0,90,0]) 
         MakeWristBolt();
     }
     
-    if (part == "Cuff") {
+    if (part == "Cuff" || part == "All") {
+        translate([-400, -400, 0])
+        translate([-150, -230, 0])
         if (LeftRight == "Left") {
             mirror([0,1,0]) MakeCuff();
         } else {
@@ -89,7 +103,9 @@ module print_part( ) {
         }
     }
     
-    if (part == "Arm1") {
+    if (part == "Arm1" || part == "All") {
+        translate([400, -400, 0])
+        translate([0, -10, 0])
         // rotate for better print orientation
         rotate([0,180,0]) 
         if (LeftRight == "Left") {
@@ -99,8 +115,8 @@ module print_part( ) {
         }
     } 
     
-    if (part == "Arm2") {
-        
+    if (part == "Arm2" || part == "All") {
+        translate([800, 400, 0])
         // rotate for better print orientation
         rotate([0,180,0]) 
         if(ArmPieces == 2)
@@ -113,33 +129,39 @@ module print_part( ) {
         }
     } 
     
-    if (part == "GripperHand") {
-         
+    if (part == "GripperHand" || part == "All") {
+        translate([400, 800, 0])
+        translate([30, 0, 0])
         if (LeftRight == "Left") {
             mirror([1,0,0])     MakeGripper();
         } else {
             MakeGripper();
         }
     } 
-    if (part == "ThumbMoldOuter") {
+    if (part == "ThumbMoldOuter" || part == "All") {
+        translate([800, 800, 0])
+        translate([120, -100,0])
         if (LeftRight == "Left") {
             mirror([1,0,0])     MakeThumbMoldOuter();
         } else {
             MakeThumbMoldOuter();
         }
     } 
-    if (part == "ThumbMoldInner") {
+    if (part == "ThumbMoldInner" || part == "All") {
+        translate([-800, 400, 0])
+        translate([200, -200, 0])
         if (LeftRight == "Left") {
             mirror([1,0,0])     MakeThumbMoldInner();
         } else {
             MakeThumbMoldInner();
         }
     } 
-    if (part == "ThumbReg") {
+    if (part == "ThumbReg" || part == "All") {
+        translate([-800, -800, 0])
         if (LeftRight == "Left") {
             mirror([1,0,0])     MakeThumbReg();
         } else {
-            MakeThumb();
+            MakeThumbReg();
         }
     }
     
