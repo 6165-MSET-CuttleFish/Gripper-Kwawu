@@ -334,6 +334,7 @@ module MakeArm(PieceNumber) {
 }
 
 module MakeGripper() {  
+    BoltAlign = WristBoltDiameter == 25 ? 165 : 310;
     difference(){
         union(){
             // Load hand model
@@ -375,7 +376,7 @@ module MakeGripper() {
     difference(){
         // Add inner threads for wrist bolt holder
         translate([(28.7209 + 0.69/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, 0])
-        rotate([0, 0, 165])
+        rotate([0, 0, BoltAlign])
         thread_in(WristBoltDiameter, 18 * HandScale);
     }
 }
