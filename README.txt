@@ -1,4 +1,4 @@
-A remix combining:
+A remix by Eric Woo-Shem combining:
 Kwawu Arm 2.0 - Prosthetic - Socket Version by JacquinBuchanan:
 - Thingiverse: https://www.thingiverse.com/thing:2841281
 Thai Reach Gripper Thumb with improved pen holder and Kwawu socket by Thai Reach (James Quilty):
@@ -8,6 +8,6 @@ Gripper Thumb Terminal Device by Skip Meetze and Jon Schull:
 - Thingiverse: https://www.thingiverse.com/thing:1908866
 
 This project aims to seamlessly join the Kwawu arm to the Gripper Thumb Device.
-It also contains our thumb silicon coating grip improvements (WIP).
+It also contains our thumb silicon coating grip improvements (WIP). Idea and modification by Eric Woo-Shem.
 
 Updated tutorials and instructions coming soon.

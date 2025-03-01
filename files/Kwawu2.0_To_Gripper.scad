@@ -11,7 +11,7 @@
 // The ISO thread code is by Trevor Moseley
 
 // Preview Each Part
-part = "Cuff"; // [Cuff:Cuff, Arm1:Arm1, Arm2:Arm2, WristBolt:WristBolt,  ElbowBolt:ElbowBolt, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg, All:All *WIP*]    
+part = "Cuff"; // [Cuff:Cuff, Arm1:Arm1, Arm2:Arm2, ElbowBolt:ElbowBolt, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg, All:All *WIP*]    
 
 // Choose Left or Right Hand
 LeftRight = "Left"; // [Left,Right]
@@ -31,8 +31,6 @@ PaddingThickness = 2; //[0: 10]
 ElbowBoltDiameter = 8; //[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 // Extra added diameter for elbow bolt
 ElbowBoltExtraDiameter = 0.15;
-
-WristBoltDiameter = 25; // [20, 25, 30]
 
 VentingHoles = "None"; // [None,VentingHoles1,VentingHoles2,VentingHoles3]
 
@@ -156,7 +154,7 @@ module print_part( ) {
             MakeThumbMoldInner();
         }
     } 
-    if (part == "ThumbReg" || part == "All") {
+    if (part == "ThumbReg") {
         translate([-800, -800, 0])
         if (LeftRight == "Left") {
             mirror([1,0,0])     MakeThumbReg();
@@ -186,7 +184,7 @@ module MakeCuff() {
 module MakeWristBolt() {
     // Compensate .6 mm tolerance per 5 mm change in thread diameter
     // this is because with smaller bolt, we need larger tolerance
-    diam = WristBoltDiameter - 0.12 * (25 - WristBoltDiameter);
+    diam = WristBoltDiameter == 25 ? 25 : WristBoltDiameter == 20 ? 19.4 : WristBoltDiameter == 30 ? 29.4 : 25;
     hi = 16 * HandScale + 20 * ArmScale - 10;
     
     difference() {
@@ -237,13 +235,17 @@ module MakeArm(PieceNumber) {
         }
         
         if(PieceNumber == 1) {
-            // cut large hole for wrist bolt 
-            // the -0.05 on bolt diamter is to make sure threads attach to walls
-            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -(21.5* ArmScale) + (26* ArmScale)/2 ]) 
-            cylinder(d = WristBoltDiameter - 0.05, h = 27.00 * ArmScale + 50 * ArmScale, center=true, $fn=30);
+            rodWidth = 25 * ArmCircumferenceScale + 0.6;
+            
+            //Add cutout for rod
+            
+            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -32.15 * ArmScale])   
+            rotate([0,0,26])
+
+            cube([rodWidth, rodWidth, 20 * ArmScale + 0.3], center=true);
             
             // cut small hole for wrist bolt 
-            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -(21.5* ArmScale) + (30* ArmScale)/2 ]) cylinder(d = WristBoltDiameter - 4, h = 40.00 * ArmScale + 60 * ArmScale, center=true, $fn=30);
+            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -(21.5* ArmScale) + (30* ArmScale)/2 ]) cylinder(d = 16 * ArmCircumferenceScale, h = 40.00 * ArmScale + 60 * ArmScale, center=true, $fn=30);
         }
         
         if(PieceNumber == 2 || ArmPieces == 1) {
@@ -298,25 +300,6 @@ module MakeArm(PieceNumber) {
          }
     }
    
-    if(PieceNumber == 1) {
-        difference(){
-            
-            //Add inner threads for wrist bolt holder
-            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -(20 * ArmScale + 40 * ArmScale) +(-3* ArmScale) ])   
-            thread_in(WristBoltDiameter, 23 * ArmScale + 40 * ArmScale);
-          
-            // truncate threads length to wrist end
-            translate([2.513 * ArmCircumferenceScale - 100, 14.753 * ArmCircumferenceScale - 100, -(21.5* ArmScale)-0.5]) 
-            cube(200);
-            
-            // truncate threads inside arm
-            translate([2.513 * ArmCircumferenceScale - 100, 14.753 * ArmCircumferenceScale - 100, -200-(46.5* ArmScale)-0.5]) 
-            cube(200);
-            
-        }
-    }
-    
-
         
     if(PieceNumber == 2 || ArmPieces == 1) {
        difference() {
@@ -334,7 +317,6 @@ module MakeArm(PieceNumber) {
 }
 
 module MakeGripper() {  
-    BoltAlign = WristBoltDiameter == 25 ? 165 : 310;
     difference(){
         union(){
             // Load hand model
@@ -362,23 +344,15 @@ module MakeGripper() {
             translate([-32 * HandScale, -15.5 * HandScale, 38.44 * HandScale])
             cylinder(h = 14.49 * HandScale, d = 6 * HandScale, $fn = 30);
         }
-          
-        // cut large hole for wrist bolt
-        translate([(28.7209 + 0.69/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, 0])
-        {
-            cylinder(d = WristBoltDiameter - 0.05, h = 30 * HandScale, center=true, $fn=30);
-            
-            // cut small hole for wrist bolt
-            cylinder(d = WristBoltDiameter - 4, h = 27 * HandScale, center=true, $fn=30);
-        }
     }
     
-    difference(){
-        // Add inner threads for wrist bolt holder
-        translate([(28.7209 + 0.69/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, 0])
-        rotate([0, 0, BoltAlign])
-        thread_in(WristBoltDiameter, 18 * HandScale);
-    }
+        rodWidth = 25 * ArmCircumferenceScale;
+        // Add rod
+        translate([(28.7209 + 0.69/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -10.2])
+        rotate([0,0,0])
+        cube([rodWidth, rodWidth, 20 * ArmScale], center=true);
+    
+    
 }
 module MakeThumbMoldOuter() {
     ThumbOuter();
