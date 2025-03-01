@@ -186,7 +186,7 @@ module MakeCuff() {
 module MakeWristBolt() {
     // Compensate .6 mm tolerance per 5 mm change in thread diameter
     // this is because with smaller bolt, we need larger tolerance
-    diam = WristBoltDiameter - 0.12 * (25 - WristBoltDiameter);
+    diam = WristBoltDiameter == 25 ? 25 : WristBoltDiameter == 20 ? 19.4 : WristBoltDiameter == 30 ? 29.4 : 25;
     hi = 16 * HandScale + 20 * ArmScale - 10;
     
     difference() {
@@ -339,8 +339,12 @@ module MakeGripper() {
         union(){
             // Load hand model
             Gripper();
-            translate([28 * HandScale, -3.5 * HandScale, 0])
-            cylinder(h = 20 * HandScale, d = 25 * HandScale, $fn = 30);
+            
+            // Fill in original bolt mount
+            translate([27.6* HandScale, -3.5 * HandScale, 0])
+            cylinder(h = 18 * HandScale, d = 25 * HandScale, $fn = 30);
+            translate([23* HandScale, -2 * HandScale, 0])
+            cylinder(h = 30 * HandScale, d = 25 * HandScale, $fn = 30);
             
             // Fix screw hole for thumb
             rotate([0,90,0])
