@@ -348,7 +348,7 @@ module MakeGripper() {
     
         rodWidth = 25 * ArmCircumferenceScale;
         // Add rod
-        translate([(28.7209 + 0.69/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -10.2])
+        translate([(28.7209 + 0.69/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -8.2 * HandScale])
         rotate([0,0,0])
         cube([rodWidth, rodWidth, 20 * ArmScale], center=true);
     
