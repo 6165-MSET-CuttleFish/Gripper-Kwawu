@@ -170,7 +170,7 @@ module print_part( ) {
 }
 
 module MakeCuff() {
-    
+    ElbowBoltDiameter = CuffScale * 8;
     difference() {
         Cuff();
         
@@ -247,10 +247,6 @@ module MakeArm(PieceNumber) {
             rotate([0,0,26])
 
             cube([rodWidth, rodWidth, 20 * ArmScale + 0.3], center=true);
-            
-            // cut small hole for wrist bolt 
-            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -(21.5* ArmScale) + (30* ArmScale)/2 ]) cylinder(d = 16 * ArmCircumferenceScale, h = 40.00 * ArmScale + 60 * ArmScale, center=true, $fn=30);
-
         }
         
         if(PieceNumber == 2 || ArmPieces == 1) {
@@ -360,7 +356,7 @@ module MakeGripper() {
     
         rodWidth = 25 * ArmCircumferenceScale;
         // Add rod
-        translate([(28.7209 + 0.9/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -8.2 * HandScale])
+        translate([(28.7209 + 0.9/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -10 * ArmScale])
         rotate([0,0,0])
         cube([rodWidth, rodWidth, 20 * ArmScale], center=true);
     
