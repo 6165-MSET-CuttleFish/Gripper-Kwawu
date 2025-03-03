@@ -27,6 +27,8 @@ AdditionalHandScale = 100; //[50: 150]
 PaddingThickness = 2; //[0: 10]
 // How many pieces to divide the arm into  HIDDEN
 // ArmPieces = 2; //[1, 2]
+// Use automatic sizing for ElbowBolt
+AutoElbowBoltDiameter = true; //[true, false]
 // ISO metric bolt holding cuff and arm together (mm)
 ElbowBoltDiameter = 8; //[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 // Extra added diameter for elbow bolt
@@ -170,7 +172,7 @@ module print_part( ) {
 }
 
 module MakeCuff() {
-    ElbowBoltDiameter = CuffScale * 8;
+    ElbowBoltDiameter = AutoElbowBoltDiameter? CuffScale * 9 : ElbowBoltDiameter;
     difference() {
         Cuff();
         
@@ -226,7 +228,7 @@ module MakeWristBolt() {
 }
 
 module MakeArm(PieceNumber) {
-    
+    ElbowBoltDiameter = AutoElbowBoltDiameter? CuffScale * 9 : ElbowBoltDiameter;
     difference(){
         
         if(ArmPieces == 1) {
