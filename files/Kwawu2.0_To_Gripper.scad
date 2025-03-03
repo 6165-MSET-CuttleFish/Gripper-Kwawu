@@ -321,16 +321,23 @@ module MakeGripper() {
         union(){
             // Load hand model
             Gripper();
-            translate([28 * HandScale, -3.5 * HandScale, 0])
-            cylinder(h = 20 * HandScale, d = 25 * HandScale, $fn = 30);
             
+            // Fill in original bolt mount
+            translate([27.6* HandScale, -3.5 * HandScale, 0])
+            cylinder(h = 18 * HandScale, d = 25 * HandScale, $fn = 30);
+            translate([23* HandScale, -2 * HandScale, 0])
+            cylinder(h = 30 * HandScale, d = 25 * HandScale, $fn = 30);
+            
+            // Fill in Letter
+            translate([9* HandScale, -4 * HandScale, 0])
+            cylinder(h = 4 * HandScale, d = 10 * HandScale, $fn = 30);
             // Fix screw hole for thumb
             rotate([0,90,0])
             translate([-32 * HandScale, -15.5 * HandScale, 9.35 * HandScale])
             {
                 difference() {
                     cylinder(h = 50 * HandScale, d = 5 * HandScale, $fn = 30);
-                    cylinder(h = 50 * HandScale, d = (ThumbScrewDia-0.45) * HandScale, $fn = 30);
+                    cylinder(h = 50 * HandScale, d = (ThumbScrewDia-0.35) * HandScale, $fn = 30);
                 }
             }
         }
@@ -348,7 +355,7 @@ module MakeGripper() {
     
         rodWidth = 25 * ArmCircumferenceScale;
         // Add rod
-        translate([(28.7209 + 0.69/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -8.2 * HandScale])
+        translate([(28.7209 + 0.9/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -8.2 * HandScale])
         rotate([0,0,0])
         cube([rodWidth, rodWidth, 20 * ArmScale], center=true);
     
