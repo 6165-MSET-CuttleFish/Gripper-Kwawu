@@ -10,4 +10,4 @@ Gripper Thumb Terminal Device by Skip Meetze and Jon Schull:
 This project aims to seamlessly join the Kwawu arm to the Gripper Thumb Device.
 It also contains our thumb silicon coating grip improvements (WIP). Idea and modification by Eric Woo-Shem.
 
-Updated tutorials and instructions: https://docs.google.com/document/d/e/2PACX-1vRzKjdE7Q_Y2PLtzeJnaDFhXHZQPzd4Qfv54i5kKcmvUTlR4QQR6Dt2h0DKTbqaLpLWmwbOTZa1Dtvd/pub
+Updated tutorials and instructions: https://docs.google.com/document/d/e/2PACX-1vQiE61WLvWIIf0l21KY_aq2EyqqXtYlE5avX8kokdrgHoe-9YLW6Rk-tTG_0t6x4ZzcVl86VRpsMSOM/pub
