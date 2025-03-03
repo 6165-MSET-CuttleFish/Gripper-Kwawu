@@ -72,15 +72,17 @@ module print_part( ) {
         // ( dia,hi, headhi, headDiameter, hexDiameter)
         translate([-30, 0, 0])
         make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
-        translate([400, 400, 0])
-        translate([30, 0, 0])
-        make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
-        translate([400, 400, 0])
-        translate([0, 30, 0])
-        make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
-        translate([400, 400, 0])
-        translate([0, -30, 0])
-        make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+        if (part == "All") {
+            translate([400, 400, 0])
+            translate([30, 0, 0])
+            make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+            translate([400, 400, 0])
+            translate([0, 30, 0])
+            make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+            translate([400, 400, 0])
+            translate([0, -30, 0])
+            make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
+        }
         
     }
 
@@ -184,8 +186,10 @@ module MakeCuff() {
 module MakeWristBolt() {
     // Compensate .6 mm tolerance per 5 mm change in thread diameter
     // this is because with smaller bolt, we need larger tolerance
-    diam = WristBoltDiameter == 25 ? 25 : WristBoltDiameter == 20 ? 19.4 : WristBoltDiameter == 30 ? 29.4 : 25;
-    hi = 16 * HandScale + 20 * ArmScale - 10;
+
+    diam = WristBoltDiameter == 25 ? 25 : WristBoltDiameter == 20 ? 19.6 : WristBoltDiameter == 30 ? 29.4 : 25;
+    hi = 16 * HandScale + 20 * ArmScale;
+
     
     difference() {
         
@@ -246,6 +250,7 @@ module MakeArm(PieceNumber) {
             
             // cut small hole for wrist bolt 
             translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -(21.5* ArmScale) + (30* ArmScale)/2 ]) cylinder(d = 16 * ArmCircumferenceScale, h = 40.00 * ArmScale + 60 * ArmScale, center=true, $fn=30);
+
         }
         
         if(PieceNumber == 2 || ArmPieces == 1) {
