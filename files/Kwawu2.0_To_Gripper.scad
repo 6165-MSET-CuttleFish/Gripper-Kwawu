@@ -70,21 +70,11 @@ print_part();
 module print_part( ) {
     
     if(part == "ElbowBolt" || part == "All") {
+        ElbowBoltDiameter = (AutoElbowBoltDiameter ? CuffScale * 9 : ElbowBoltDiameter) + ElbowBoltExtraDiameter;
         translate([400, 400, 0])
         // ( dia,hi, headhi, headDiameter, hexDiameter)
         translate([-30, 0, 0])
-        make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
-        if (part == "All") {
-            translate([400, 400, 0])
-            translate([30, 0, 0])
-            make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
-            translate([400, 400, 0])
-            translate([0, 30, 0])
-            make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
-            translate([400, 400, 0])
-            translate([0, -30, 0])
-            make_bolt(ElbowBoltDiameter + ElbowBoltExtraDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
-        }
+        make_bolt(ElbowBoltDiameter, ArmCircumferenceScale * 6 + CuffScale * 10, ElbowBoltDiameter/2, ElbowBoltDiameter *3);
         
     }
 
@@ -437,7 +427,7 @@ rotate([-90,0,0])
         translate([0,0,-1]) rotate([0,0,45]) cylinder(d = dia - 2 ,h = dia, $fn=4);
      
         //flatten one side to make it printable
-        translate([-hi, dia/2 - dia/12, -1]) cube(hi *2);   
+        translate([-hi, dia/2 - dia/12, -1]) cube(hi *4);   
         
         //flatten other side to make threads not wavy on top
         translate([-hi,- (hi *2) - (dia/2 - dia/14), headhi + 0.1]) cube(hi *2);   
