@@ -21,6 +21,8 @@ ArmLength = 282; //[141: 564]
 ForearmCircumference = 271; //[135: 542]
 // Circumference of Bicep (mm)
 BicepCircumference = 294; //[147: 588]
+// Wrist to Fingertip
+HandLength = 185; //[80: 240]
 // Additional Hand Scale (percentage)
 AdditionalHandScale = 100; //[50: 150]
 // Padding Thickness -inside forearm and cuff (mm)
@@ -56,11 +58,44 @@ ForearmCircumferenceWPadding = ((ForearmCircumference/PI) + 2*PaddingThickness)*
 ArmCircumferenceScale = ForearmCircumferenceWPadding/271;
 BicepCircumferenceWPadding = ((BicepCircumference/PI) + 2*PaddingThickness)*PI;
 CuffScale = BicepCircumferenceWPadding/294;
-//HandScale = HandWidth/93;
-HandScale = ArmCircumferenceScale * (AdditionalHandScale/100) * 1.1544; // 1.1544 multiplier for large hand
 
+RawHandScale = HandLength / (128 * 1.341); // Correct HandScale
+
+// Scales
+OutlineScales = [80, 90, 100, 110, 120];
+
+minDifference = abs((OutlineScales[0] / 100.0) * ArmCircumferenceScale - RawHandScale);
+
+// Get best scale
+function getClosestScale(index = 0, bestIndex = 0) = 
+    (index == len(OutlineScales)) 
+    ? OutlineScales[bestIndex]
+    : let(
+        scaleCandidate = (OutlineScales[index] / 100.0) * ArmCircumferenceScale,
+        bestScale = (OutlineScales[bestIndex] / 100.0) * ArmCircumferenceScale
+      )
+      (abs(scaleCandidate - RawHandScale) < abs(bestScale - RawHandScale)) 
+      ? getClosestScale(index + 1, index) 
+      : getClosestScale(index + 1, bestIndex);
+
+closestScale = getClosestScale();
+
+// Size HandScale to match the scaled end outline
+HandScale = (closestScale / 100.0) * ArmCircumferenceScale * AdditionalHandScale/100;
+
+// Set filename to load
+Arm1File = str("o_Arm1_", closestScale, ".stl");
+
+// Debug
+echo("RawHandScale: ", RawHandScale);
+echo("Closest Scale: ", closestScale);
+echo("Final HandScale: ", HandScale);
+echo("ArmCircScale: ", ArmCircumferenceScale);
+echo("Scale of end: ", ArmCircumferenceScale * closestScale/100);
+
+echo("STL File: ", Arm1File);
 // Metric thumb screw diameter
-ThumbScrewDia = HandScale > 0.86 ? 4 : 3;
+ThumbScrewDia = HandScale > 1 ? 4 : 3;
 
 $fn=30;
 
@@ -231,14 +266,14 @@ module MakeArm(PieceNumber) {
         }
         
         if(PieceNumber == 1) {
-            rodWidth = 25 * ArmCircumferenceScale + 0.6;
+            rodWidth = 20 * ArmCircumferenceScale + 0.6;
             
             //Add cutout for rod
             
-            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -32.15 * ArmScale])   
+            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -10 * ArmScale])   
             rotate([0,0,26])
 
-            cube([rodWidth, rodWidth, 20 * ArmScale + 0.3], center=true);
+            cube([rodWidth, rodWidth, 20 * ArmScale + 0.5], center=true);
         }
         
         if(PieceNumber == 2 || ArmPieces == 1) {
@@ -346,9 +381,9 @@ module MakeGripper() {
         }
     }
     
-        rodWidth = 25 * ArmCircumferenceScale;
+        rodWidth = 20 * ArmCircumferenceScale;
         // Add rod
-        translate([(28.7209 + 0.9/1.1544)* HandScale, (-5.9592 + 1.77/1.1544 + .54/1.1544)* HandScale, -10 * ArmScale])
+        translate([(28.7209 + 0.9)* HandScale, (-5.9592 + 1.77 + .54)* HandScale, -10 * ArmScale])
         rotate([0,0,0])
         cube([rodWidth, rodWidth, 20 * ArmScale], center=true);
     
@@ -427,7 +462,7 @@ rotate([-90,0,0])
         translate([0,0,-1]) rotate([0,0,45]) cylinder(d = dia - 2 ,h = dia, $fn=4);
      
         //flatten one side to make it printable
-        translate([-hi, dia/2 - dia/12, -1]) cube(hi *4);   
+        translate([-2 * hi, dia/2 - dia/12, -1]) cube(hi*4);   
         
         //flatten other side to make threads not wavy on top
         translate([-hi,- (hi *2) - (dia/2 - dia/14), headhi + 0.1]) cube(hi *2);   
@@ -631,7 +666,7 @@ module th_in_pt(rt,p,s,sg,thr,h,sh)
 			[1,4,5],[1,5,2]]);	// top face
 }
 
-module Arm1() {scale([ArmCircumferenceScale,ArmCircumferenceScale,ArmScale]) import("o_Arm1.stl", convexity=3); }
+module Arm1() {translate([0,0,21.83*ArmScale])scale([ArmCircumferenceScale,ArmCircumferenceScale,ArmScale]) import(Arm1File, convexity=3); }
 
 module Arm2() {scale([ArmCircumferenceScale,ArmCircumferenceScale,ArmScale]) import("o_Arm2.stl", convexity=3); }
 
@@ -656,14 +691,14 @@ module Gripper() {
     import("o_Gripper.stl", convexity=3);
 }
 module ThumbOuter() { 
-    scale([HandScale / 1.1544, HandScale / 1.1544, HandScale / 1.1544]) 
+    scale([HandScale, HandScale, HandScale]) 
     import("o_ThumbOuter.stl", convexity=3);
 }
 module ThumbInner() { 
-    scale([HandScale / 1.1544, HandScale / 1.1544, HandScale / 1.1544]) 
+    scale([HandScale, HandScale, HandScale]) 
     import("o_ThumbInner.stl", convexity=3);
 }
 module ThumbReg() { 
-    scale([HandScale / 1.1544, HandScale / 1.1544, HandScale / 1.1544]) 
+    scale([HandScale, HandScale, HandScale]) 
     import("o_ThumbReg.stl", convexity=3);
 }
