@@ -235,10 +235,10 @@ module MakeArm(PieceNumber) {
             
             //Add cutout for rod
             
-            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -32.15 * ArmScale])   
+            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -10 * ArmScale])   
             rotate([0,0,26])
 
-            cube([rodWidth, rodWidth, 20 * ArmScale + 0.3], center=true);
+            cube([rodWidth, rodWidth, 20 * ArmScale + 0.5], center=true);
         }
         
         if(PieceNumber == 2 || ArmPieces == 1) {
@@ -631,7 +631,7 @@ module th_in_pt(rt,p,s,sg,thr,h,sh)
 			[1,4,5],[1,5,2]]);	// top face
 }
 
-module Arm1() {scale([ArmCircumferenceScale,ArmCircumferenceScale,ArmScale]) import("o_Arm1.stl", convexity=3); }
+module Arm1() {translate([0,0,21.83*ArmScale])scale([ArmCircumferenceScale,ArmCircumferenceScale,ArmScale]) import("o_Arm1.stl", convexity=3); }
 
 module Arm2() {scale([ArmCircumferenceScale,ArmCircumferenceScale,ArmScale]) import("o_Arm2.stl", convexity=3); }
 
