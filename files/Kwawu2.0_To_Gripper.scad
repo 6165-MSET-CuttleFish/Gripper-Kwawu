@@ -62,7 +62,7 @@ CuffScale = BicepCircumferenceWPadding/294;
 RawHandScale = HandLength / (128 * 1.341); // Correct HandScale
 
 // Scales
-OutlineScales = [80, 90, 100, 110, 120];
+OutlineScales = [70, 80, 90, 100, 110, 120];
 
 minDifference = abs((OutlineScales[0] / 100.0) * ArmCircumferenceScale - RawHandScale);
 
@@ -92,6 +92,8 @@ echo("Closest Scale: ", closestScale);
 echo("Final HandScale: ", HandScale);
 echo("ArmCircScale: ", ArmCircumferenceScale);
 echo("Scale of end: ", ArmCircumferenceScale * closestScale/100);
+echo("Estimated resulting hand length: ", 128*HandScale * 1.341);
+echo("Difference between print and real hand: ", 128*HandScale * 1.341 - HandLength);
 
 echo("STL File: ", Arm1File);
 // Metric thumb screw diameter
@@ -266,7 +268,7 @@ module MakeArm(PieceNumber) {
         }
         
         if(PieceNumber == 1) {
-            rodWidth = 20 * ArmCircumferenceScale + 0.6;
+            rodWidth = closestScale / 100 * 20 * ArmCircumferenceScale + 0.6;
             
             //Add cutout for rod
             
@@ -381,7 +383,7 @@ module MakeGripper() {
         }
     }
     
-        rodWidth = 20 * ArmCircumferenceScale;
+        rodWidth = closestScale / 100 * 20 * ArmCircumferenceScale;
         // Add rod
         translate([(28.7209 + 0.9)* HandScale, (-5.9592 + 1.77 + .54)* HandScale, -10 * ArmScale])
         rotate([0,0,0])
