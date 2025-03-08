@@ -1,8 +1,11 @@
-// The Kwawu 2.0 prosthetic Arm - Socket Version
-// By Jacqun Buchanan
+// Version: 1.0.0
+// Updated 3/4/25
 
 // Modified by Eric Woo-Shem for Gripper hand
 // Using Gripper design by Skip Meetze and Jon Schull & Modifications by James Quilty (Thai_Reach)
+
+// The Kwawu 2.0 prosthetic Arm - Socket Version
+// By Jacqun Buchanan
 
 // Parameteric 3-d printable prosthetic arm
 //
@@ -667,6 +670,7 @@ module th_in_pt(rt,p,s,sg,thr,h,sh)
 			[0,5,3],[0,2,5],	// bottom face
 			[1,4,5],[1,5,2]]);	// top face
 }
+
 
 module Arm1() {translate([0,0,21.83*ArmScale])scale([ArmCircumferenceScale,ArmCircumferenceScale,ArmScale]) import(Arm1File, convexity=3); }
 
