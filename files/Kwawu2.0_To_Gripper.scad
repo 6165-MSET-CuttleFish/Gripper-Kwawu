@@ -14,7 +14,7 @@
 // The ISO thread code is by Trevor Moseley
 
 // Preview Each Part
-part = "Cuff"; // [Cuff:Cuff, Arm1:Arm1, Arm2:Arm2, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg]    
+part = "Cuff"; // [Cuff:Cuff, Arm1:Arm1, Arm2:Arm2, ElbowBolt:ElbowBolt, GripperHand: GripperHand, ThumbMoldOuter:ThumbMoldOuter, ThumbMoldInner:ThumbMoldInner, ThumbReg:ThumbReg]    
 
 // Choose Left or Right Hand
 LeftRight = "Left"; // [Left,Right]
