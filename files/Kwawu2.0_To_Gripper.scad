@@ -1,5 +1,5 @@
-// Version: 1.2.0
-// Updated 3/8/25
+// Version: 1.2.1
+// Updated 3/10/25
 
 // Modified by Eric Woo-Shem for Gripper hand
 // Using Gripper design by Skip Meetze and Jon Schull & Modifications by James Quilty (Thai_Reach)
