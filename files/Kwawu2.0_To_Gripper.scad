@@ -697,14 +697,14 @@ module Gripper() {
     import("o_Gripper.stl", convexity=3);
 }
 module ThumbOuter() { 
-    scale([HandScale, HandScale, HandScale]) 
+    scale([HandScale*0.8945, HandScale*0.8945, HandScale*0.8945]) 
     import("o_ThumbOuter.stl", convexity=3);
 }
 module ThumbInner() { 
-    scale([HandScale, HandScale, HandScale]) 
+    scale([HandScale*0.8945, HandScale*0.8945, HandScale*0.8945]) 
     import("o_ThumbInner.stl", convexity=3);
 }
 module ThumbReg() { 
-    scale([HandScale, HandScale, HandScale]) 
+    scale([HandScale*0.86, HandScale*0.86, HandScale*0.86]) 
     import("o_ThumbReg.stl", convexity=3);
 }
