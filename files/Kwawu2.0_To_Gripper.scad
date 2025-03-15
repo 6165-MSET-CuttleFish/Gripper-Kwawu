@@ -1,5 +1,5 @@
-// Version: 1.2.1
-// Updated 3/10/25
+// Version: 1.2.2
+// Updated 3/15/25
 
 // Modified by Eric Woo-Shem for Gripper hand
 // Using Gripper design by Skip Meetze and Jon Schull & Modifications by James Quilty (Thai_Reach)
@@ -65,7 +65,7 @@ CuffScale = BicepCircumferenceWPadding/294;
 RawHandScale = HandLength / (128 * 1.341); // Correct HandScale
 
 // Scales
-OutlineScales = [70, 80, 90, 100, 110, 120];
+OutlineScales = [70, 80, 90, 100, 110, 120, 130];
 
 minDifference = abs((OutlineScales[0] / 100.0) * ArmCircumferenceScale - RawHandScale);
 
