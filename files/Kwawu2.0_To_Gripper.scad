@@ -275,7 +275,7 @@ module MakeArm(PieceNumber) {
             
             //Add cutout for rod
             
-            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, -10 * ArmScale])   
+            translate([2.513 * ArmCircumferenceScale, 14.753 * ArmCircumferenceScale, ArmCircumferenceScale * -.5 -10 * ArmScale + 0.25])   
             rotate([0,0,26])
 
             cube([rodWidth, rodWidth, 20 * ArmScale + 0.5], center=true);
