@@ -1,1 +1,39 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Build and output directories
+dist/
+build/
+out/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Generated files
+*.class
+*.pyc
+*.pyo
+
+# Git-related files
+.gitignore~
+
+# OpenSCAD
 files/Kwawu2.0_To_Gripper.json
