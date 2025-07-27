@@ -1,6 +1,6 @@
 # e-NABLE Gripper-Kwawu Prosthetic
 
-A remix by Eric Woo-Shem combining multiple prosthetic designs to create a seamlessly integrated arm and gripper system.
+A remix by Eric Woo-Shem combining two prosthetic designs to create a seamlessly integrated arm and gripper system.
 
 ## Project Overview
 
@@ -13,10 +13,6 @@ This design combines the following open-source prosthetic projects:
 ### Kwawu Arm 2.0 - Prosthetic Socket Version
 - **Creator:** JacquinBuchanan
 - **Link:** [Thingiverse](https://www.thingiverse.com/thing:2841281)
-
-### Thai Reach Gripper Thumb
-- **Creator:** James Quilty (Thai Reach)
-- **Link:** [Thingiverse](https://www.thingiverse.com/thing:4787450)
 
 ### Gripper Thumb Terminal Device
 - **Creators:** Skip Meetze and Jon Schull
