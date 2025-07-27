@@ -9,7 +9,6 @@
 This work is a remix created by **Eric Woo-Shem** that combines and modifies the following original open-source prosthetic designs:
 
 - **Kwawu Arm 2.0 - Prosthetic Socket Version** by Jacquin Buchanan
-- **Thai Reach Gripper Thumb** by James Quilty (Thai Reach)
 - **Gripper Thumb Terminal Device** by Skip Meetze and Jon Schull
 
 ### License Terms
@@ -38,7 +37,7 @@ In the spirit of the e-NABLE community and to ensure these devices remain access
 
 When sharing or modifying this work, please include:
 - Credit to Eric Woo-Shem as the remix creator
-- Credit to all original creators: Jacquin Buchanan, James Quilty, Skip Meetze, and Jon Schull
+- Credit to all original creators: Jacquin Buchanan, Skip Meetze, and Jon Schull
 - A link to the original source projects when possible
 - A link to this license
 - Clear indication of any modifications made
