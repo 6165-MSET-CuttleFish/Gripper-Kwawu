@@ -28,8 +28,10 @@ BicepCircumference = 294; //[147: 588]
 HandLength = 185; //[80: 240]
 // Additional Hand Scale (percentage)
 AdditionalHandScale = 100; //[50: 150]
-// Padding Thickness -inside forearm and cuff (mm)
-PaddingThickness = 2; //[0: 10]
+// Padding Thickness -inside forearm (mm)
+ForearmPaddingThickness = 0; //[0: 10]
+// Padding Thickness -inside cuff (mm)
+CuffPaddingThickness = 2; //[0: 10]
 // How many pieces to divide the arm into  HIDDEN
 // ArmPieces = 2; //[1, 2]
 // Use automatic sizing for ElbowBolt
@@ -57,9 +59,9 @@ PI =  3.141592653589793238;
 HandVersion = "V2.2";
 ArmScale = ArmLength/282;
 
-ForearmCircumferenceWPadding = ((ForearmCircumference/PI) + 2*PaddingThickness)*PI;
+ForearmCircumferenceWPadding = ((ForearmCircumference/PI) + 2*ForearmPaddingThickness)*PI;
 ArmCircumferenceScale = ForearmCircumferenceWPadding/271;
-BicepCircumferenceWPadding = ((BicepCircumference/PI) + 2*PaddingThickness)*PI;
+BicepCircumferenceWPadding = ((BicepCircumference/PI) + 2*CuffPaddingThickness)*PI;
 CuffScale = BicepCircumferenceWPadding/294;
 
 RawHandScale = HandLength / (128 * 1.341); // Correct HandScale
